@@ -1,14 +1,21 @@
 package view;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import model.QuestionModel;
+import model.ReponseModel;
 
 public class EditQuestionController {
 
@@ -19,9 +26,9 @@ public class EditQuestionController {
 	@FXML
 	private TextField nbLigneTextField;
 	@FXML
-	private TableView reponseTable;
+	private TableView<ReponseModel> reponseTable;
 	@FXML
-	private TableColumn reponseColumn;
+	private TableColumn<ObservableList<ReponseModel>,String> reponseColumn;
 
 	public static final ObservableList<String> OPTIONS = 
 		    FXCollections.observableArrayList(
@@ -32,6 +39,8 @@ public class EditQuestionController {
 	private Stage dialogStage;
 	private QuestionModel question;
 	private boolean okClicked = false;
+	
+	
 	
 	@FXML
 	private void initialize()
@@ -55,7 +64,28 @@ public class EditQuestionController {
 		this.typeComboBox.setItems(OPTIONS);
 		this.typeComboBox.getSelectionModel().select(this.typeComboBox.getItems().indexOf(question.getTypeReponse().getValue()));
 		handleComboBox();
+		setTab(question);
 		this.nbLigneTextField.setText(Integer.toString(question.getNbLignesReponse().getValue()));
+	}
+	
+	public void setTab(QuestionModel question)
+	{
+		if(question.getTypeReponse().getValue().equals("Cocher"))
+		{
+			this.reponseColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+			this.reponseColumn.setOnEditCommit(event -> {
+			    String s = event.getNewValue();
+			    this.question.getReponseData().getValue().get(event.getTablePosition().getRow()).setReponse(s);
+			});
+			
+			this.reponseColumn.setCellValueFactory(new PropertyValueFactory<>("reponse"));
+			this.reponseTable.setItems(question.getReponseData().getValue());
+			this.reponseTable.setVisible(true);
+			this.reponseColumn.setEditable(true);
+		}else
+		{
+			this.reponseTable.setVisible(false);
+		}
 	}
 	
 	/**

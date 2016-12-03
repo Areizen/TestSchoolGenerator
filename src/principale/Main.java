@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.QuestionModel;
+import model.ReponseModel;
 import view.EditQuestionController;
 import view.OverviewInterroController;
 
@@ -43,7 +44,16 @@ public class Main extends Application {
 	
 	public void initSample()
 	{
-		questionData.add(new QuestionModel("Comment allez vous ?"));
+		QuestionModel question = new QuestionModel("Bonjour ?");
+		question.getTypeReponse().set("Cocher");
+		ReponseModel model = new ReponseModel();
+		model.setReponse("test");
+		ReponseModel model1 = new ReponseModel();
+		model1.setReponse("wololo");
+		question.getReponseData().getValue().add(model);
+		question.getReponseData().getValue().add(model1);
+		
+		questionData.add(question);
 	}
 	
 	public void initRoot()

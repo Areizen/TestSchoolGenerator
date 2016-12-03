@@ -42,7 +42,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <TableView fx:id="reponseTable" prefHeight="327.0" prefWidth="300.0">
+        <TableView fx:id="reponseTable" editable="true" prefHeight="327.0" prefWidth="300.0">
           <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="299.0" text="Réponse" fx:id="reponseColumn" />
           </columns>
