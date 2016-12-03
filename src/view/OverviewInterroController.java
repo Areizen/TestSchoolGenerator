@@ -66,7 +66,7 @@ public class OverviewInterroController {
 	
 	private void showReponseTable(QuestionModel question)
 	{
-		if(question.getTypeReponse().equals("Cocher"))
+		if(question.getTypeReponse().getValue().equals("Cocher"))
 		{
 			//this.reponseColumn.setCellValueFactory();
 			this.reponseTable.setVisible(true);
