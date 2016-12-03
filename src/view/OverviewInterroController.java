@@ -23,6 +23,8 @@ public class OverviewInterroController {
 	private Label nbLigneLabel;
 	@FXML
 	private TableView<QuestionModel> reponseTable;
+	@FXML
+	private TableColumn reponseColumn;
 
 
 	// Reference to the main application.
@@ -51,11 +53,26 @@ public class OverviewInterroController {
 			questionLabel.setText(question.getQuestion().getValue());
 			typeLabel.setText(question.getTypeReponse().getValue());
 			nbLigneLabel.setText(Integer.toString(question.getNbLignesReponse().getValue()));
+			showReponseTable(question);
+			
 		}else
 		{
 			questionLabel.setText("");
 			typeLabel.setText("");
 			nbLigneLabel.setText("0");
+			reponseTable.setVisible(false);
+		}
+	}
+	
+	private void showReponseTable(QuestionModel question)
+	{
+		if(question.getTypeReponse().equals("Cocher"))
+		{
+			//this.reponseColumn.setCellValueFactory();
+			this.reponseTable.setVisible(true);
+		}else
+		{
+			this.reponseTable.setVisible(false);
 		}
 	}
 	
@@ -78,6 +95,11 @@ public class OverviewInterroController {
 	
 	public void handleNew()
 	{
+		QuestionModel tempQuestion = new QuestionModel("");
+		boolean okClicked = mainApp.showPersonEditDialog(tempQuestion);
+		if (okClicked) {
+            mainApp.getQuestionData().add(tempQuestion);
+        }
 		
 	}
 	

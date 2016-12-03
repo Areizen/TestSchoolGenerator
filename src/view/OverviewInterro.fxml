@@ -44,14 +44,14 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                 </GridPane>
-                <TableView prefHeight="257.0" prefWidth="486.0">
+                <TableView fx:id="reponseTable" prefHeight="257.0" prefWidth="486.0">
                   <columns>
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="485.0" text="Réponse" />
+                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="485.0" text="Réponse" fx:id="reponseColumn" />
                   </columns>
                 </TableView>
                 <HBox prefHeight="30.0" prefWidth="153.0" spacing="10.0" VBox.vgrow="NEVER">
                   <children>
-                    <Button mnemonicParsing="false" text="New..." />
+                    <Button mnemonicParsing="false" onAction="#handleNew" text="New..." />
                     <Button mnemonicParsing="false" onAction="#handleEdit" text="Edit..." />
                     <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete..." />
                   </children>
