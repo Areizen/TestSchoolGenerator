@@ -13,19 +13,19 @@ public class QuestionModel {
 
 	private final StringProperty question;
 	private final StringProperty typeReponse = new SimpleStringProperty("Remplir Ligne");
-	private final IntegerProperty nbLignesReponse = new SimpleIntegerProperty(4);
-	private ObjectProperty<ObservableList<ReponseModel>> reponseData = new SimpleObjectProperty<ObservableList<ReponseModel>>(FXCollections.observableArrayList());
+	private final IntegerProperty nbLignesReponse = new SimpleIntegerProperty(1);
+	private ObjectProperty<ObservableList<StringProperty>> reponseData = new SimpleObjectProperty<ObservableList<StringProperty>>(FXCollections.observableArrayList());
 
 	
 
 	/**
 	 * @return the reponseData
 	 */
-	public ObjectProperty<ObservableList<ReponseModel>> getReponseData() {
+	public ObjectProperty<ObservableList<StringProperty>> getReponseData() {
 		return reponseData;
 	}
 	
-	public void setReponseData(ObjectProperty<ObservableList<ReponseModel>> reponseData)
+	public void setReponseData(ObjectProperty<ObservableList<StringProperty>> reponseData)
 	{
 		this.reponseData = reponseData;
 	}

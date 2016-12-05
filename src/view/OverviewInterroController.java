@@ -1,19 +1,17 @@
 package view;
 
-import java.util.List;
-
-import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Alert.AlertType;
 import model.QuestionModel;
-import model.ReponseModel;
 import principale.Main;
 
 public class OverviewInterroController {
@@ -29,9 +27,9 @@ public class OverviewInterroController {
 	@FXML
 	private Label nbLigneLabel;
 	@FXML
-	private TableView<ReponseModel> reponseTable;
+	private TableView<StringProperty> reponseTable;
 	@FXML
-	private TableColumn<ObservableList<ReponseModel>,String> reponseColumn;
+	private TableColumn<ObservableList<StringProperty>,String> reponseColumn;
 	
 	// Reference to the main application.
 	private Main mainApp;
@@ -46,25 +44,12 @@ public class OverviewInterroController {
 				(observable,oldvalue,newValue)-> showQuestionDetails(newValue));
 	}
 	
-	void refreshTable() {
-	    final List<QuestionModel> items = questionTable.getItems();
-	    if( items == null || items.size() == 0) return;
-
-	    final QuestionModel item = questionTable.getItems().get(0);
-	    items.remove(0);
-	    Platform.runLater(new Runnable(){
-	        @Override
-	        public void run() {
-	            items.add(0, item);
-	        }
-	    });
-	 }
-	
-	private void showReponseTable(QuestionModel question)
+	public void showReponseTable(QuestionModel question)
 	{
 		if(question.getTypeReponse().getValue().equals("Cocher"))
 		{
-			reponseColumn.setCellValueFactory(new PropertyValueFactory<>("reponse"));
+			reponseTable.setItems(question.getReponseData().getValue());
+			reponseColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 			reponseTable.setVisible(true);
 		}else
 		{
@@ -76,14 +61,18 @@ public class OverviewInterroController {
 		this.mainApp = mainApp;
 		questionTable.setItems(mainApp.getQuestionData());
 	}
-
-	public static <T,U> void refreshTableView(TableView<T> tableView, List<TableColumn<T,U>> columns, List<T> rows) {        
-	    tableView.getColumns().clear();
-	    tableView.getColumns().addAll(columns);
-
-	    ObservableList<T> list = FXCollections.observableArrayList(rows);
-	    tableView.setItems(list);
+	
+	
+	public void handleImprimer()
+	{
+		mainApp.showImprimerDialog();
 	}
+	
+	public void handleClose()
+	{
+		System.exit(0);
+	}
+
 	
 	public void showQuestionDetails(QuestionModel question)
 	{
@@ -125,6 +114,7 @@ public class OverviewInterroController {
 	public void handleNew()
 	{
 		QuestionModel tempQuestion = new QuestionModel("");
+		tempQuestion.getReponseData().getValue().add(new SimpleStringProperty(""));
 		boolean okClicked = mainApp.showPersonEditDialog(tempQuestion);
 		if (okClicked) {
             mainApp.getQuestionData().add(tempQuestion);
@@ -140,6 +130,7 @@ public class OverviewInterroController {
 			boolean okClicked = mainApp.showPersonEditDialog(selectedQuestion);
 			if (okClicked) {
 	            showQuestionDetails(selectedQuestion);
+	            this.reponseTable.refresh();
 	        }
 		}else
 		{

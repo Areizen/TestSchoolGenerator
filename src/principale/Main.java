@@ -3,6 +3,7 @@ package principale;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.QuestionModel;
-import model.ReponseModel;
 import view.EditQuestionController;
+import view.ImprimerController;
 import view.OverviewInterroController;
 
 public class Main extends Application {
@@ -25,7 +26,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Contrôle");
-		
 		initSample();
 		initRoot();
 		initOverviewInterro();
@@ -46,12 +46,8 @@ public class Main extends Application {
 	{
 		QuestionModel question = new QuestionModel("Bonjour ?");
 		question.getTypeReponse().set("Cocher");
-		ReponseModel model = new ReponseModel();
-		model.setReponse("test");
-		ReponseModel model1 = new ReponseModel();
-		model1.setReponse("wololo");
-		question.getReponseData().getValue().add(model);
-		question.getReponseData().getValue().add(model1);
+		question.getReponseData().getValue().add(new SimpleStringProperty("test"));
+		question.getReponseData().getValue().add(new SimpleStringProperty("test2"));
 		
 		questionData.add(question);
 	}
@@ -118,6 +114,34 @@ public class Main extends Application {
 	        e.printStackTrace();
 	        return false;
 	    }
+	}
+	
+	public boolean showImprimerDialog()
+	{
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/ImprimerOverview.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Print");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			
+			ImprimerController controller  = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setQuestionData(this.questionData);
+			
+			dialogStage.showAndWait();
+			
+			return controller.isPrintClicked();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public static void main(String[] args) {

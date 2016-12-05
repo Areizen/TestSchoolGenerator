@@ -9,9 +9,9 @@
 <AnchorPane minHeight="-1.0" prefHeight="450.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.OverviewInterroController">
   <!-- TODO Add Nodes -->
   <children>
-    <SplitPane dividerPositions="0.455456570155902" focusTraversable="true" prefHeight="450.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane dividerPositions="0.455456570155902" focusTraversable="true" prefHeight="419.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="418.0" prefWidth="406.0">
           <children>
             <TableView fx:id="questionTable" prefHeight="448.0" prefWidth="406.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
               <columns>
@@ -68,5 +68,22 @@
         </AnchorPane>
       </items>
     </SplitPane>
+    <MenuBar layoutX="1.0" layoutY="-1.0" minHeight="27.0" prefHeight="33.0" prefWidth="900.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleImprimer" text="Imprimer" />
+            <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New..." />
+            <MenuItem mnemonicParsing="false" onAction="#handleEdit" text="Edit..." />
+            <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Delete..." />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
   </children>
 </AnchorPane>
