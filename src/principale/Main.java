@@ -26,7 +26,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Contrôle");
-		initSample();
+		//initSample();
 		initRoot();
 		initOverviewInterro();
 		
@@ -40,6 +40,11 @@ public class Main extends Application {
 	public ObservableList<QuestionModel> getQuestionData()
 	{
 		return this.questionData;
+	}
+	
+	public void setQuestionData(ObservableList<QuestionModel> questions)
+	{
+		this.questionData = questions;
 	}
 	
 	public void initSample()

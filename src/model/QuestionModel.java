@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,7 +11,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class QuestionModel {
+public class QuestionModel{
 
 	private final StringProperty question;
 	private final StringProperty typeReponse = new SimpleStringProperty("Remplir Ligne");
@@ -55,6 +57,4 @@ public class QuestionModel {
 	public StringProperty getTypeReponse() {
 		return typeReponse;
 	}
-	
-	
 }

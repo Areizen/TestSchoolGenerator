@@ -1,10 +1,7 @@
 package view;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -75,13 +72,13 @@ public class EditQuestionController {
 			this.reponseColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 			this.reponseColumn.setOnEditCommit(event -> {
 				String s = event.getNewValue();
-				this.question.getReponseData().getValue().get(event.getTablePosition().getRow()).set(s);;
+				this.question.getReponseData().getValue().get(event.getTablePosition().getRow()).set(s);
 			});
-
 			this.reponseColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 			this.reponseTable.setItems(question.getReponseData().getValue());
 			this.reponseTable.setVisible(true);
 			this.reponseColumn.setEditable(true);
+			this.handleLigneChange();
 		}else
 		{
 			this.reponseTable.setVisible(false);
@@ -114,17 +111,18 @@ public class EditQuestionController {
 				for(int i=this.reponseTable.getItems().size(); i>nb_ligne;i--)
 				{
 					this.reponseTable.getItems().remove(i-1);
+					this.reponseTable.refresh();
 				}
 			}else
 			{
 				for(int i= this.reponseTable.getItems().size();i<nb_ligne;i++)
 				{
 					this.reponseTable.getItems().add(new SimpleStringProperty(""));
+					this.reponseTable.refresh();
 				}
 			}
 		}catch(NumberFormatException e)
 		{
-			e.printStackTrace();
 		}
 	}
 
